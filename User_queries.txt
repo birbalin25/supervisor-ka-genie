@@ -1,0 +1,55 @@
+⏺ Genie Only                                                                            
+                                                                                        
+  1. What is the total revenue from delivered orders in Q1 2024?                      
+  2. Which customer has the highest lifetime value and what is their membership tier? 
+  3. Show me the top 3 best-selling products by number of units sold.                   
+  4. How many support tickets are still open and what are their priorities?             
+  5. What is the average order value by payment method?                                 
+                                                                                        
+  Knowledge Assistant Only                                                              
+
+  1. What is the return policy for assembled furniture?
+  2. What troubleshooting steps should I follow if my CloudBuds left earbud stops
+  working?
+  3. What are the differences between the Basic Plus, Premium Care, and Total Protection
+   extended warranty plans?
+  4. Does the SoundBar Elite work with a TV that only has an optical audio output?
+  5. What are the benefits of Platinum membership compared to Gold?
+
+  Both Genie and KA
+
+  1. Clara Davis has an open ticket about her UltraBook Pro screen flickering — is her
+  laptop still under warranty and what are her repair options?
+  2. Customer C008 returned their CloudBuds on order ORD-1008. Were they charged a
+  restocking fee given the reason for return?
+  3. Which Gold members are closest to reaching Platinum, and what additional benefits
+  would they unlock?
+  4. What is the most returned product, and what troubleshooting steps could have
+  prevented the return?
+  5. Olivia Jackson got a satisfaction score of 2 on her support ticket — what happened
+  with her ErgoDesk delivery and what does our shipping policy say about misdelivered
+  packages?
+
+
+  Multiple Iterations questions (both Genie+KA)
+
+  1. Which product has the most support tickets? What does the product manual say about
+  the common issues reported? Are the affected customers getting resolved in time, and
+  what would the cost be if we offered all of them an extended warranty as a goodwill
+  gesture?
+
+  2. What are the requirements to reach Platinum membership? Which Gold members are
+  closest to qualifying? For the closest one, what products have they been buying and
+  would an extended warranty upsell push them over the threshold?
+
+  3. Who is the customer with the lowest support ticket satisfaction score? What went
+  wrong with their order, what does the shipping policy say about their situation, and
+  are there other orders from the same region with similar issues?
+
+  4. What is the most returned product? How much revenue has it generated despite returns?
+   What troubleshooting steps could have prevented the return, and what's the restocking
+   fee policy for that product category?
+
+   5. Which customers have open warranty tickets? For each, is their product still under   
+  warranty based on the purchase date? And what is each customer's membership tier and  
+  lifetime value?
