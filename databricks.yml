@@ -1,0 +1,26 @@
+bundle:
+  name: ka_genie_supervisor
+
+variables:
+  catalog:
+    default: ka_genie_demo
+    description: Unity Catalog name for all tables and volumes
+  schema:
+    default: ecommerce
+    description: Schema name within the catalog
+  warehouse_id:
+    default: 148ccb90800933a1
+    description: SQL Warehouse ID for Genie Space
+
+targets:
+  prod:
+    mode: production
+    default: true
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+      auth_type: databricks-cli
+      profile: azure11
+      root_path: /Workspace/Users/birbal.das@databricks.com/mastercard_supervisor_agent/${bundle.name}/${bundle.target}
+
+include:
+  - resources/*.yml

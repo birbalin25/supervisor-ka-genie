@@ -1,0 +1,57 @@
+resources:
+  jobs:
+    ka_genie_pipeline:
+      name: "[${bundle.target}] KA-Genie Supervisor Agent Pipeline"
+      description: "End-to-end pipeline: creates Delta tables & PDFs, sets up Knowledge Assistant and Genie Space, then runs the Supervisor Agent."
+      tags:
+        project: ka_genie_supervisor
+
+      tasks:
+        # Step 1: Create Delta tables
+        - task_key: create_delta_tables
+          notebook_task:
+            notebook_path: ../01_setup_and_data/01_create_delta_tables.py
+            source: WORKSPACE
+          environment_key: default
+
+        # Step 2: Generate PDFs (depends on tables for catalog/schema/volume)
+        - task_key: generate_pdfs
+          depends_on:
+            - task_key: create_delta_tables
+          notebook_task:
+            notebook_path: ../01_setup_and_data/02_generate_pdfs.py
+            source: WORKSPACE
+          environment_key: default
+
+        # Step 3a: Setup Knowledge Assistant (depends on PDFs)
+        - task_key: setup_knowledge_assistant
+          depends_on:
+            - task_key: generate_pdfs
+          notebook_task:
+            notebook_path: ../02_knowledge_assistant/01_setup_knowledge_assistant.py
+            source: WORKSPACE
+          environment_key: default
+
+        # Step 3b: Setup Genie Space (depends on tables, runs in parallel with KA)
+        - task_key: setup_genie_space
+          depends_on:
+            - task_key: create_delta_tables
+          notebook_task:
+            notebook_path: ../03_genie_space/01_setup_genie_space.py
+            source: WORKSPACE
+          environment_key: default
+
+        # Step 4: Run Supervisor Agent (depends on both KA and Genie)
+        - task_key: run_supervisor_agent
+          depends_on:
+            - task_key: setup_knowledge_assistant
+            - task_key: setup_genie_space
+          notebook_task:
+            notebook_path: ../04_supervisor_agent/01_supervisor_agent.py
+            source: WORKSPACE
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            client: "1"
