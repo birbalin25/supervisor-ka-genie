@@ -350,6 +350,60 @@ print("All table and column comments added successfully.")
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC ## Add Primary Keys and Foreign Keys
+
+# COMMAND ----------
+
+# -- Set PK columns to NOT NULL (required for primary key constraints) --
+spark.sql(f"ALTER TABLE {CUSTOMERS_TABLE} ALTER COLUMN customer_id SET NOT NULL")
+spark.sql(f"ALTER TABLE {PRODUCTS_TABLE} ALTER COLUMN product_id SET NOT NULL")
+spark.sql(f"ALTER TABLE {ORDERS_TABLE} ALTER COLUMN order_id SET NOT NULL")
+spark.sql(f"ALTER TABLE {ORDER_ITEMS_TABLE} ALTER COLUMN item_id SET NOT NULL")
+spark.sql(f"ALTER TABLE {SUPPORT_TICKETS_TABLE} ALTER COLUMN ticket_id SET NOT NULL")
+
+print("PK columns set to NOT NULL.")
+
+# -- Primary Keys --
+spark.sql(f"ALTER TABLE {CUSTOMERS_TABLE} ADD CONSTRAINT pk_customers PRIMARY KEY (customer_id)")
+spark.sql(f"ALTER TABLE {PRODUCTS_TABLE} ADD CONSTRAINT pk_products PRIMARY KEY (product_id)")
+spark.sql(f"ALTER TABLE {ORDERS_TABLE} ADD CONSTRAINT pk_orders PRIMARY KEY (order_id)")
+spark.sql(f"ALTER TABLE {ORDER_ITEMS_TABLE} ADD CONSTRAINT pk_order_items PRIMARY KEY (item_id)")
+spark.sql(f"ALTER TABLE {SUPPORT_TICKETS_TABLE} ADD CONSTRAINT pk_support_tickets PRIMARY KEY (ticket_id)")
+
+print("Primary keys added.")
+
+# -- Foreign Keys --
+# orders.customer_id -> customers.customer_id
+spark.sql(f"ALTER TABLE {ORDERS_TABLE} ADD CONSTRAINT fk_orders_customer FOREIGN KEY (customer_id) REFERENCES {CUSTOMERS_TABLE} (customer_id)")
+
+# order_items.order_id -> orders.order_id
+spark.sql(f"ALTER TABLE {ORDER_ITEMS_TABLE} ADD CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES {ORDERS_TABLE} (order_id)")
+
+# order_items.product_id -> products.product_id
+spark.sql(f"ALTER TABLE {ORDER_ITEMS_TABLE} ADD CONSTRAINT fk_order_items_product FOREIGN KEY (product_id) REFERENCES {PRODUCTS_TABLE} (product_id)")
+
+# support_tickets.customer_id -> customers.customer_id
+spark.sql(f"ALTER TABLE {SUPPORT_TICKETS_TABLE} ADD CONSTRAINT fk_tickets_customer FOREIGN KEY (customer_id) REFERENCES {CUSTOMERS_TABLE} (customer_id)")
+
+# support_tickets.order_id -> orders.order_id
+spark.sql(f"ALTER TABLE {SUPPORT_TICKETS_TABLE} ADD CONSTRAINT fk_tickets_order FOREIGN KEY (order_id) REFERENCES {ORDERS_TABLE} (order_id)")
+
+# support_tickets.product_id -> products.product_id
+spark.sql(f"ALTER TABLE {SUPPORT_TICKETS_TABLE} ADD CONSTRAINT fk_tickets_product FOREIGN KEY (product_id) REFERENCES {PRODUCTS_TABLE} (product_id)")
+
+print("Foreign keys added.")
+print()
+print("Relationships:")
+print("  customers.customer_id  <--  orders.customer_id")
+print("  orders.order_id        <--  order_items.order_id")
+print("  products.product_id    <--  order_items.product_id")
+print("  customers.customer_id  <--  support_tickets.customer_id")
+print("  orders.order_id        <--  support_tickets.order_id")
+print("  products.product_id    <--  support_tickets.product_id")
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC ## Example Queries (for Genie instructions)
 
 # COMMAND ----------
